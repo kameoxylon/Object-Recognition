@@ -7,7 +7,7 @@ This program uses template matching, histogram matching and sift matching to see
 Images are scored between 1 and however many are in the images folder. with 1 being the highest.
 Top four images are in no particular order.
 
-Lines 35, 36, 40, 41, 45, 46 are commented out since all results are printed on screen. Just uncomment to see results.
+Lines 34, 35, 38, 39, 42, 43 are commented out since all results are printed on screen. Just uncomment to see results.
 '''
 
 import cv2
@@ -33,17 +33,14 @@ def main():
 		templateTopFour, templateMatchingScores = templateMatching(imd, imq, n)
 		#topFourImages(templateTopFour, fileNames, n, "Template Matching")
 		#imageScorePlacing(templateMatchingScores, fileNames, n, "Template Matching")
-		methodRanking(n, templateTopFour, "Template Matching", fileNames)
 
 		histogramTopFour, histogramMatchingScores = histogramMatching(imd, imq, n)
 		#topFourImages(histogramTopFour, fileNames, n, "Histogram Matching")
 		#imageScorePlacing(histogramMatchingScores, fileNames, n, "Histogram Matching")
-		methodRanking(n, histogramTopFour, "Histogram Matching", fileNames)
 
 		siftTopFour, siftMatchingScores = SIFT(imd, imq, n)
 		#topFourImages(siftTopFour, fileNames, n, "SIFT")
 		#imageScorePlacing(siftMatchingScores, fileNames, n, "SIFT")
-		methodRanking(n, siftTopFour, "SIFT", fileNames)
 
 		print
 
@@ -191,30 +188,6 @@ def imageScorePlacing(allScores, fileNames, image, method):
 		count = count - 1
 
 	print
-
-#Checks to see how each method did.
-def methodRanking(image, topFour, method, fileNames):
-	duck = [0, 1, 2, 3]
-	chair = [4, 5, 6, 7]
-	person = [8, 9, 10, 11]
-	painting = [12, 13, 14, 15]
-	picture = [16, 17, 18, 19]
-
-	#This will keep track of the image and the score if they are in the correct place.
-	count = 0
-	for n, m in topFour.items():
-		if (image in duck) & (n in duck):
-			count = count + 1
-		elif (image in chair) & (n in chair):
-			count = count + 1
-		elif (image in person) & (n in person):
-			count = count + 1
-		elif (image in painting) & (n in painting):
-			count = count + 1
-		elif (image in picture) & (n in picture):
-			count = count + 1
-
-	print("The score for " + fileNames[image]+ " using " + method + " = " + str(count))
 
 
 
